@@ -5,6 +5,7 @@ import './store.dart';
 import './appState.dart';
 import './components/buttons/button.dart';
 import './components/clickTextCounters/clickTextCounter.dart';
+import './components/unlocks/unlocks.dart';
 
 void main() {
   runApp(MyApp(store: AppStore));
@@ -39,7 +40,10 @@ class MyHomePage extends StatelessWidget {
         children: <Widget>[
           Expanded(child: Center(child: ClickTextCounter())),
           Container(child: Button()),
-          Expanded(child: Container())
+          Expanded(
+              child: Container(
+            child: UnlockContainer(),
+          ))
         ],
       ),
     );

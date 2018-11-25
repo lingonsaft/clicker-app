@@ -3,12 +3,14 @@ class ClickAction {
   ClickAction(this.value);
 }
 
-class ChallengeAction {
-  String key;
-  ChallengeAction(this.key);
-}
-
 class AddAchivementAction {
   String key;
   AddAchivementAction(this.key);
+}
+
+enum ClickCount { ResetClickCount }
+
+class SetChallengeKey {
+  String key;
+  SetChallengeKey(this.key);
 }

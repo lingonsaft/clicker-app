@@ -13,12 +13,13 @@ class Button extends StatelessWidget {
         builder: (context, _ViewModel vm) => RaisedButton(
               child: Text('Button'),
               onPressed: () {
+                vm.addClick(1);
                 if (isClicksComplete(vm.challengeKey, vm.clickCount + 1)) {
-                  print('b');
                   String achivement = getClickAchivement(vm.challengeKey);
                   vm.addAchivements(achivement);
+                  vm.resetClickCount();
+                  vm.setChallengeKey(getNextChallengeKey(vm.challengeKey));
                 }
-                return vm.addClick(1);
               },
             ));
   }
@@ -27,16 +28,23 @@ class Button extends StatelessWidget {
 class _ViewModel {
   final Function(int n) addClick;
   final Function(String key) addAchivements;
+  final Function() resetClickCount;
+  final Function(String key) setChallengeKey;
   final String challengeKey;
   final int clickCount;
-  _ViewModel(
-      this.addClick, this.addAchivements, this.challengeKey, this.clickCount);
+
+  _ViewModel(this.addClick, this.addAchivements, this.resetClickCount,
+      this.setChallengeKey, this.challengeKey, this.clickCount);
 
   static _ViewModel fromStore(Store<AppState> store) {
     return _ViewModel((int n) {
       store.dispatch(ClickAction(n));
     }, (String key) {
       store.dispatch(AddAchivementAction(key));
+    }, () {
+      store.dispatch(ClickCount.ResetClickCount);
+    }, (String key) {
+      store.dispatch(SetChallengeKey(key));
     }, store.state.challengeKey, store.state.clickCount);
   }
 }

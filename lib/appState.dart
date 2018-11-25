@@ -4,5 +4,6 @@ import 'package:meta/meta.dart';
 class AppState {
   final int clickCount;
   final String challengeKey;
-  AppState(this.clickCount, this.challengeKey);
+  final List<String> completeAchivements;
+  AppState(this.clickCount, this.challengeKey, this.completeAchivements);
 }
