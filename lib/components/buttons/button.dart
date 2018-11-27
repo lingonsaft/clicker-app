@@ -9,19 +9,23 @@ class Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, _ViewModel>(
-        converter: _ViewModel.fromStore,
-        builder: (context, _ViewModel vm) => RaisedButton(
-              child: Text('Button'),
-              onPressed: () {
-                vm.addClick(1);
-                if (isClicksComplete(vm.challengeKey, vm.clickCount + 1)) {
-                  String achivement = getClickAchivement(vm.challengeKey);
-                  vm.addAchivements(achivement);
-                  vm.resetClickCount();
-                  vm.setChallengeKey(getNextChallengeKey(vm.challengeKey));
-                }
-              },
-            ));
+      converter: _ViewModel.fromStore,
+      builder: (context, _ViewModel vm) => RaisedButton(
+        child: Text('BUTTON'),
+        onPressed: () {
+          vm.addClick(1);
+
+          String achivement = getClickAchivement(vm.challengeKey, vm.clickCount + 1);
+          vm.addAchivements(achivement);
+
+          if (isClicksComplete(vm.challengeKey, vm.clickCount + 1)) {
+            vm.resetClickCount();
+            vm.setChallengeKey(getNextChallengeKey(vm.challengeKey));
+          }
+
+        },
+      )
+    );
   }
 }
 
