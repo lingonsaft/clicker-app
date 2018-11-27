@@ -5,7 +5,7 @@ import '../../appState.dart';
 import '../../utils/challengeUtil.dart';
 
 class UnlockContainer extends StatelessWidget {
-  final List<String> achivements = ['1.1', '2.1', '3.1'];
+  final Set<String> achivements = Set.from(['3.1', '2.1', '1.2', '1.1']);
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +17,14 @@ class UnlockContainer extends StatelessWidget {
         switch (latestAchivement) {
           case '1.1':
             return UnlockOne();
+          case '1.2':
+            return Text('1.2');
           case '2.1':
             return UnlockTwo();
           case '3.1':
             return UnlockThree();
           default:
-            return Text('None');
+            return Container();
         }
       },
     );
@@ -30,7 +32,7 @@ class UnlockContainer extends StatelessWidget {
 }
 
 class _ViewModel {
-  final List<String> completeAchivements;
+  final Set<String> completeAchivements;
 
   _ViewModel({@required this.completeAchivements});
 
@@ -42,20 +44,20 @@ class _ViewModel {
 class UnlockOne extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Text('One');
+    return Text('1.1');
   }
 }
 
 class UnlockTwo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Text('Two');
+    return Text('2.1');
   }
 }
 
 class UnlockThree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Text('Three');
+    return Text('3.1');
   }
 }
