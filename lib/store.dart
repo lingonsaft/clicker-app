@@ -3,4 +3,4 @@ import './reducers/appReducer.dart';
 import './appState.dart';
 
 final AppStore =
-    Store<AppState>(appReducer, initialState: AppState(0, "1", []));
+    Store<AppState>(appReducer, initialState: AppState(0, "1", Set()));

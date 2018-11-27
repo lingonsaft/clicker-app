@@ -13,8 +13,8 @@ class Actions {
 
 class Clicks {
   final int amount;
-  final String achivement;
-  Clicks({this.amount = 0, this.achivement = ""});
+  final Map<int, String> achivements;
+  Clicks({this.amount = 0, this.achivements = const {}});
 }
 
 final challenges = {
@@ -22,18 +22,19 @@ final challenges = {
     selfKey: "1",
     nextChallenge: "2",
     achivement: "1",
-    actions: Actions(clicks: Clicks(amount: 10, achivement: "1.1")),
+    actions:
+        Actions(clicks: Clicks(amount: 10, achivements: {2: '1.1', 4: '1.2'})),
   ),
   "2": Challenge(
     selfKey: "2",
     nextChallenge: "3",
     achivement: "2",
-    actions: Actions(clicks: Clicks(amount: 3, achivement: "2.1")),
+    actions: Actions(clicks: Clicks(amount: 3, achivements: {2: '2.1'})),
   ),
   "3": Challenge(
     selfKey: "3",
-    nextChallenge: "2",
+    nextChallenge: "1",
     achivement: "3",
-    actions: Actions(clicks: Clicks(amount: 5, achivement: "3.1")),
+    actions: Actions(clicks: Clicks(amount: 5, achivements: {4: '3.1'})),
   ),
 };

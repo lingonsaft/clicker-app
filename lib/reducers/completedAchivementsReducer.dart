@@ -1,7 +1,11 @@
 import "../actions/actions.dart";
 
-List<String> completedAchivementsReducer(List<String> state, dynamic action) {
+Set<String> completedAchivementsReducer(Set<String> state, dynamic action) {
   if (action is AddAchivementAction) {
+    if (action.key == '') {
+      return state;
+    }
+
     state.add(action.key);
     return state;
   }

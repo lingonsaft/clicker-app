@@ -12,9 +12,10 @@ bool isClicksComplete(String key, int clickAmount) {
   return _challenge.actions.clicks.amount == clickAmount;
 }
 
-String getClickAchivement(String key) {
+String getClickAchivement(String key, int clickAmout) {
   Challenge _challenge = getChallenge(key);
-  return _challenge.actions.clicks.achivement;
+  String achivement = _challenge.actions.clicks.achivements[clickAmout];
+  return achivement == null ? '' : achivement;
 }
 
 String getNextChallengeKey(String key) {
@@ -23,14 +24,14 @@ String getNextChallengeKey(String key) {
 }
 
 String getLatestAchivement(
-    List<String> completeAchivements, List<String> achivements) {
-  for (int achivementsIndex = achivements.length - 1;
-      achivementsIndex >= 0;
-      achivementsIndex--) {
-    String _achivement = achivements[achivementsIndex];
-    if (completeAchivements.contains(_achivement)) {
-      return _achivement;
+  Set<String> completeAchivements, Set<String> achivements) {
+
+    Iterator iterator = achivements.iterator;
+    while (iterator.moveNext()) {
+      String current = iterator.current;
+      if (completeAchivements.contains(current)) {
+        return current;
+      }
     }
-  }
-  return '';
+    return '';
 }
