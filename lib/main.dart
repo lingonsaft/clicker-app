@@ -3,7 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import './store.dart';
 import './appState.dart';
-import './components/buttons/button.dart';
+import './components/buttons/buttonContainer.dart';
 import './components/clickTextCounters/clickTextCounter.dart';
 import './components/unlocks/unlocks.dart';
 
@@ -39,7 +39,7 @@ class MyHomePage extends StatelessWidget {
       body: Column(
         children: <Widget>[
           Expanded(child: Center(child: ClickTextCounter())),
-          Container(child: Button()),
+          Container(child: ButtonContainer()),
           Expanded(
               child: Container(
             child: UnlockContainer(),
