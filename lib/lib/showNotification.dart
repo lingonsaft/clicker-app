@@ -4,8 +4,8 @@ import '../components/achivementNotification/achivementNotification.dart';
 
 class ShowNotification {
   void display({
-    BuildContext context,
     Duration duration = const Duration(seconds: 2),
+    @required BuildContext context,
     @required String title,
     @required String body,
   }) async {

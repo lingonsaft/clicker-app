@@ -5,20 +5,59 @@ import '../../actions/actions.dart';
 import '../../appState.dart';
 import '../../utils/challengeUtil.dart';
 import './standardButton.dart';
+import '../../lib/showNotification.dart';
+import '../../utils/achivementsUtil.dart';
+import '../../achivements/achivements.dart';
 
-class ButtonContainer extends StatelessWidget {
+ShowNotification notification = ShowNotification();
+
+class ButtonContainer extends StatefulWidget {
+
+  @override
+  _ButtonContainer createState() => _ButtonContainer();
+}
+
+class _ButtonContainer extends State<ButtonContainer> {
   final Set<String> achivements = Set.from(['1.1']);
+  bool clicksCompleted = false;
+
+  /*
+   * runs on each interaction with the button
+   * should reset store and change challange if all
+   * conditions are true
+  */
+  void onChallangeCompletion (_ViewModel vm) {
+    if (this.clicksCompleted) {
+      vm.resetClickCount();
+      vm.setChallengeKey(getNextChallengeKey(vm.challengeKey));
+
+      clicksCompleted = false;
+    }
+  }
+
+  void onAchivement(_ViewModel vm String achivement) {
+    if (achivement != '') {
+      Achivement _achivement = getAchivement(achivement);
+      notification.display(
+        title: _achivement.title,
+        body: _achivement.body,
+        context: context
+      );
+      vm.addAchivements(achivement);
+    }
+  }
 
   void onPressed(_ViewModel vm) {
     vm.addClick(1);
 
     String achivement = getClickAchivement(vm.challengeKey, vm.clickCount + 1);
-    vm.addAchivements(achivement);
+    onAchivement(vm, achivement);
 
     if (isClicksComplete(vm.challengeKey, vm.clickCount + 1)) {
-      vm.resetClickCount();
-      vm.setChallengeKey(getNextChallengeKey(vm.challengeKey));
+      this.clicksCompleted = true;
     }
+
+    onChallangeCompletion(vm);
   }
 
   Widget getButtonWidget(_ViewModel vm) {
