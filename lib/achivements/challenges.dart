@@ -8,7 +8,23 @@ class Challenge {
 
 class Actions {
   final Clicks clicks;
-  Actions({this.clicks});
+  final Swipes swipesUp;
+  final Swipes swipesDown;
+  final Swipes swipesLeft;
+  final Swipes swipesRight;
+  Actions({
+    this.clicks,
+    this.swipesUp,
+    this.swipesDown,
+    this.swipesLeft,
+    this.swipesRight
+  });
+}
+
+class Swipes {
+  final int amount;
+  final Map<int, String> achivements;
+  Swipes({this.amount = 0, this.achivements = const {}});
 }
 
 class Clicks {
@@ -22,8 +38,10 @@ final challenges = {
     selfKey: "1",
     nextChallenge: "2",
     achivement: "1",
-    actions:
-        Actions(clicks: Clicks(amount: 10, achivements: {2: '1.1', 4: '1.2'})),
+    actions: Actions(
+      clicks: Clicks(amount: 10, achivements: {2: '1.1', 4: '1.2'}),
+      swipesLeft: Swipes(amount: 10, achivements: {5: '1.3'})
+    ),
   ),
   "2": Challenge(
     selfKey: "2",

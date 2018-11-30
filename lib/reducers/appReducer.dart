@@ -2,10 +2,16 @@ import '../appState.dart';
 import './clickCountReducer.dart';
 import './challengeReducer.dart';
 import './completedAchivementsReducer.dart';
+import './swipeCountReducer.dart';
 
 AppState appReducer(AppState state, dynamic action) {
   return AppState(
-      clickCountReducer(state.clickCount, action),
-      challengeReducer(state.challengeKey, action),
-      completedAchivementsReducer(state.completeAchivements, action));
+    clickCount: clickCountReducer(state.clickCount, action),
+    challengeKey: challengeReducer(state.challengeKey, action),
+    completeAchivements: completedAchivementsReducer(state.completeAchivements, action),
+    swipeUpCount: swipeUpReducer(state.swipeUpCount, action),
+    swipeDownCount: swipeDownReducer(state.swipeDownCount, action),
+    swipeLeftCount: swipeLeftReducer(state.swipeLeftCount, action),
+    swipeRightCount: swipeRightReducer(state.swipeRightCount, action),
+  );
 }

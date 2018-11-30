@@ -5,5 +5,18 @@ class AppState {
   final int clickCount;
   final String challengeKey;
   final Set<String> completeAchivements;
-  AppState(this.clickCount, this.challengeKey, this.completeAchivements);
+  final int swipeUpCount;
+  final int swipeDownCount;
+  final int swipeLeftCount;
+  final int swipeRightCount;
+
+  AppState({
+    this.clickCount,
+    this.challengeKey,
+    this.completeAchivements,
+    this.swipeUpCount,
+    this.swipeDownCount,
+    this.swipeLeftCount,
+    this.swipeRightCount
+  });
 }

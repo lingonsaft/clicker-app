@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
+import 'package:swipedetector/swipedetector.dart';
+
 import '../../actions/actions.dart';
 import '../../appState.dart';
 import '../../utils/challengeUtil.dart';
@@ -8,6 +10,7 @@ import './standardButton.dart';
 import '../../lib/showNotification.dart';
 import '../../utils/achivementsUtil.dart';
 import '../../achivements/achivements.dart';
+import '../../store.dart';
 
 ShowNotification notification = ShowNotification();
 
@@ -19,19 +22,43 @@ class ButtonContainer extends StatefulWidget {
 
 class _ButtonContainer extends State<ButtonContainer> {
   final Set<String> achivements = Set.from(['1.1']);
-  bool clicksCompleted = false;
+  bool isClicksCompleted = false;
+  bool isSwipesUpCompleted = false;
+  bool isSwipesDownCompleted = false;
+  bool isSwipesLeftCompleted = false;
+  bool isSwipesRightCompleted = false;
 
+  @override
+  void initState() {
+    super.initState();
+    String challangeKey = AppStore.state.challengeKey;
+    print(challangeKey);
+    setCompletedChecks(challangeKey);
+  }
+
+  void setCompletedChecks(String challangeKey) {
+    Map<String, bool> availableActions = getAvailableActions(challangeKey);
+    isClicksCompleted = !availableActions['clicks'];
+    isSwipesUpCompleted = !availableActions['swipesUp'];
+    isSwipesDownCompleted = !availableActions['swipesDown'];
+    isSwipesLeftCompleted = !availableActions['swipesLeft'];
+    isSwipesRightCompleted = !availableActions['swipesRight'];
+  }
   /*
    * runs on each interaction with the button
    * should reset store and change challange if all
    * conditions are true
   */
-  void onChallangeCompletion (_ViewModel vm) {
-    if (this.clicksCompleted) {
-      vm.resetClickCount();
-      vm.setChallengeKey(getNextChallengeKey(vm.challengeKey));
+  void checkChallangeCompletion(_ViewModel vm) {
+    if (this.isClicksCompleted && this.isSwipesUpCompleted &&
+        this.isSwipesDownCompleted &&
+        this.isSwipesLeftCompleted &&
+        this.isSwipesRightCompleted) {
 
-      clicksCompleted = false;
+      vm.resetClickCount();
+      String challangeKey = getNextChallengeKey(vm.challengeKey);
+      vm.setChallengeKey(challangeKey);
+      setCompletedChecks(challangeKey);
     }
   }
 
@@ -49,15 +76,96 @@ class _ButtonContainer extends State<ButtonContainer> {
 
   void onPressed(_ViewModel vm) {
     vm.addClick(1);
-
     String achivement = getClickAchivement(vm.challengeKey, vm.clickCount + 1);
     onAchivement(vm, achivement);
 
-    if (isClicksComplete(vm.challengeKey, vm.clickCount + 1)) {
-      this.clicksCompleted = true;
+    if (isClicksCompleted == false && isClicksComplete(vm.challengeKey, vm.clickCount + 1)) {
+      this.isClicksCompleted = true;
     }
 
-    onChallangeCompletion(vm);
+    checkChallangeCompletion(vm);
+  }
+
+  void onSwipeAny(vm) {
+
+  }
+
+  void onSwipeUp(_ViewModel vm) {
+    vm.addSwipeUp(1);
+    String achivement = getSwipeUpAchivement(vm.challengeKey, vm.swipeUpCount + 1);
+    onAchivement(vm, achivement);
+
+    if (isSwipesUpCompleted == false && isSwipesUpComplete(vm.challengeKey, vm.swipeUpCount + 1)) {
+      this.isSwipesUpCompleted = true;
+    }
+
+    checkChallangeCompletion(vm);
+  }
+
+  void onSwipeDown(_ViewModel vm) {
+    vm.addSwipeDown(1);
+    String achivement = getSwipeDownAchivement(vm.challengeKey, vm.swipeDownCount + 1);
+    onAchivement(vm, achivement);
+
+    if (isSwipesDownCompleted == false && isSwipesDownComplete(vm.challengeKey, vm.swipeDownCount + 1)) {
+      this.isSwipesDownCompleted = true;
+    }
+
+    checkChallangeCompletion(vm);
+  }
+
+  void onSwipeLeft(_ViewModel vm) {
+    vm.addSwipeLeft(1);
+    String achivement = getSwipeLeftAchivement(vm.challengeKey, vm.swipeLeftCount + 1);
+    onAchivement(vm, achivement);
+
+    if (isSwipesLeftCompleted == false && isSwipesLeftComplete(vm.challengeKey, vm.swipeLeftCount + 1)) {
+      this.isSwipesLeftCompleted = true;
+    }
+
+    checkChallangeCompletion(vm);
+  }
+
+  void onSwipeRight(_ViewModel vm) {
+    vm.addSwipeRight(1);
+    String achivement = getSwipeDownAchivement(vm.challengeKey, vm.swipeRightCount + 1);
+    onAchivement(vm, achivement);
+
+    if (isSwipesRightCompleted == false && isSwipesRightComplete(vm.challengeKey, vm.swipeRightCount + 1)) {
+      this.isSwipesRightCompleted = true;
+    }
+
+    checkChallangeCompletion(vm);
+  }
+
+  Widget withSwipeDetection(_ViewModel vm, Widget child) {
+    return SwipeDetector(
+      child: child,
+      onSwipeUp: () {
+        print('swipe up');
+        print(vm.swipeUpCount);
+        onSwipeAny(vm);
+        onSwipeUp(vm);
+      },
+      onSwipeDown: () {
+        print('swipe down');
+        print(vm.swipeDownCount);
+        onSwipeAny(vm);
+        onSwipeDown(vm);
+      },
+      onSwipeLeft: () {
+        print('swipe left');
+        print(vm.swipeLeftCount);
+        onSwipeAny(vm);
+        onSwipeLeft(vm);
+      },
+      onSwipeRight: () {
+        print('swipe right');
+        print(vm.swipeRightCount);
+        onSwipeAny(vm);
+        onSwipeRight(vm);
+      },
+    );
   }
 
   Widget getButtonWidget(_ViewModel vm) {
@@ -79,7 +187,7 @@ class _ButtonContainer extends State<ButtonContainer> {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, _ViewModel>(
         converter: _ViewModel.fromStore,
-        builder: (context, _ViewModel vm) => getButtonWidget(vm));
+        builder: (context, _ViewModel vm) => withSwipeDetection(vm, getButtonWidget(vm)));
   }
 }
 
@@ -91,15 +199,32 @@ class _ViewModel {
   final String challengeKey;
   final int clickCount;
   final Set<String> completeAchivements;
+  final Function(int n) addSwipeUp;
+  final Function(int n) addSwipeDown;
+  final Function(int n) addSwipeLeft;
+  final Function(int n) addSwipeRight;
+  final int swipeUpCount;
+  final int swipeDownCount;
+  final int swipeLeftCount;
+  final int swipeRightCount;
 
   _ViewModel(
-      this.addClick,
-      this.addAchivements,
-      this.resetClickCount,
-      this.setChallengeKey,
-      this.challengeKey,
-      this.clickCount,
-      this.completeAchivements);
+    this.addClick,
+    this.addAchivements,
+    this.resetClickCount,
+    this.setChallengeKey,
+    this.addSwipeUp,
+    this.addSwipeDown,
+    this.addSwipeLeft,
+    this.addSwipeRight,
+    this.challengeKey,
+    this.clickCount,
+    this.completeAchivements,
+    this.swipeUpCount,
+    this.swipeDownCount,
+    this.swipeLeftCount,
+    this.swipeRightCount
+  );
 
   static _ViewModel fromStore(Store<AppState> store) {
     return _ViewModel((int n) {
@@ -110,7 +235,22 @@ class _ViewModel {
       store.dispatch(ClickCount.ResetClickCount);
     }, (String key) {
       store.dispatch(SetChallengeKey(key));
-    }, store.state.challengeKey, store.state.clickCount,
-        store.state.completeAchivements);
+    }, (int n) {
+      store.dispatch(SwipeUpAddAction(n));
+    }, (int n) {
+      store.dispatch(SwipeDownAddAction(n));
+    }, (int n) {
+      store.dispatch(SwipeLeftAddAction(n));
+    }, (int n) {
+      store.dispatch(SwipeRightAddAction(n));
+    },
+    store.state.challengeKey,
+    store.state.clickCount,
+    store.state.completeAchivements,
+    store.state.swipeUpCount,
+    store.state.swipeDownCount,
+    store.state.swipeLeftCount,
+    store.state.swipeRightCount
+    );
   }
 }
