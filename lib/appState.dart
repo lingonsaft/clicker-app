@@ -9,14 +9,15 @@ class AppState {
   final int swipeDownCount;
   final int swipeLeftCount;
   final int swipeRightCount;
+  final bool soundEffectMuted;
 
-  AppState({
-    this.clickCount,
-    this.challengeKey,
-    this.completeAchivements,
-    this.swipeUpCount,
-    this.swipeDownCount,
-    this.swipeLeftCount,
-    this.swipeRightCount
-  });
+  AppState(
+      {this.clickCount,
+      this.challengeKey,
+      this.completeAchivements,
+      this.swipeUpCount,
+      this.swipeDownCount,
+      this.swipeLeftCount,
+      this.swipeRightCount,
+      this.soundEffectMuted});
 }

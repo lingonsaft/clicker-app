@@ -6,6 +6,7 @@ import './appState.dart';
 import './components/buttons/buttonContainer.dart';
 import './components/clickTextCounters/clickTextCounter.dart';
 import './components/unlocks/unlocks.dart';
+import './components/soundIcon/soundIcon.dart';
 
 void main() {
   runApp(MyApp(store: AppStore));
@@ -38,12 +39,31 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          Expanded(child: Center(child: ClickTextCounter())),
-          Container(child: ButtonContainer()),
           Expanded(
-              child: Container(
-            child: UnlockContainer(),
-          ))
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: SoundIcon(),
+                  ),
+                ),
+                Expanded(
+                  child: Center(
+                    child: ClickTextCounter(),
+                  ),
+                )
+              ],
+            ),
+          ),
+          Container(
+            child: ButtonContainer(),
+          ),
+          Expanded(
+            child: Container(
+              child: UnlockContainer(),
+            ),
+          )
         ],
       ),
     );

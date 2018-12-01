@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:swipedetector/swipedetector.dart';
+import 'package:audioplayers/audio_cache.dart';
+import 'dart:math';
 
 import '../../actions/actions.dart';
 import '../../appState.dart';
@@ -21,12 +23,14 @@ class ButtonContainer extends StatefulWidget {
 }
 
 class _ButtonContainer extends State<ButtonContainer> {
-  final Set<String> achivements = Set.from(['1.1']);
+  final Set<String> achivements = Set.from(['1.3','1.1']);
   bool isClicksCompleted = false;
   bool isSwipesUpCompleted = false;
   bool isSwipesDownCompleted = false;
   bool isSwipesLeftCompleted = false;
   bool isSwipesRightCompleted = false;
+  static AudioCache player = new AudioCache();
+  final String audioFile = 'clickSound.mp3';
 
   @override
   void initState() {
@@ -34,6 +38,7 @@ class _ButtonContainer extends State<ButtonContainer> {
     String challangeKey = AppStore.state.challengeKey;
     print(challangeKey);
     setCompletedChecks(challangeKey);
+    player.load(audioFile);
   }
 
   void setCompletedChecks(String challangeKey) {
@@ -74,8 +79,12 @@ class _ButtonContainer extends State<ButtonContainer> {
     }
   }
 
-  void onPressed(_ViewModel vm) {
+
+  void onPressed(_ViewModel vm, [playClickSound = false]) {
     vm.addClick(1);
+
+    if(playClickSound)_playClickSound(vm);
+
     String achivement = getClickAchivement(vm.challengeKey, vm.clickCount + 1);
     onAchivement(vm, achivement);
 
@@ -84,6 +93,18 @@ class _ButtonContainer extends State<ButtonContainer> {
     }
 
     checkChallangeCompletion(vm);
+  }
+
+  void _playClickSound(_ViewModel vm) {
+    if(!vm.soundEffectMuted){
+      player.play(audioFile,volume: getRandomVolume());
+    }
+  }
+
+  double getRandomVolume(){
+    Random random = Random();
+    // return double from 0.5 to 1
+    return (random.nextInt(10-4)+5)/10;
   }
 
   void onSwipeAny(vm) {
@@ -177,6 +198,11 @@ class _ButtonContainer extends State<ButtonContainer> {
           text: 'Hey <3',
           textStyle: TextStyle(fontSize: 20, color: Colors.red),
           onPressed: () => this.onPressed(vm));
+      case '1.3':
+      return StandardButton(
+          text: 'Hey <3',
+          textStyle: TextStyle(fontSize: 20, color: Colors.red),
+          onPressed: () => this.onPressed(vm, true));
       default:
         return StandardButton(
             text: 'Button', onPressed: () => this.onPressed(vm));
@@ -207,6 +233,7 @@ class _ViewModel {
   final int swipeDownCount;
   final int swipeLeftCount;
   final int swipeRightCount;
+  final bool soundEffectMuted;
 
   _ViewModel(
     this.addClick,
@@ -223,7 +250,8 @@ class _ViewModel {
     this.swipeUpCount,
     this.swipeDownCount,
     this.swipeLeftCount,
-    this.swipeRightCount
+    this.swipeRightCount,
+    this.soundEffectMuted
   );
 
   static _ViewModel fromStore(Store<AppState> store) {
@@ -250,7 +278,8 @@ class _ViewModel {
     store.state.swipeUpCount,
     store.state.swipeDownCount,
     store.state.swipeLeftCount,
-    store.state.swipeRightCount
+    store.state.swipeRightCount,
+    store.state.soundEffectMuted
     );
   }
 }

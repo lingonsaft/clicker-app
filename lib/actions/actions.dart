@@ -41,3 +41,8 @@ class SetChallengeKey {
   String key;
   SetChallengeKey(this.key);
 }
+
+class MuteSoundEffect {
+  bool value;
+  MuteSoundEffect(this.value);
+}

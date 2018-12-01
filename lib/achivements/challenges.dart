@@ -12,13 +12,12 @@ class Actions {
   final Swipes swipesDown;
   final Swipes swipesLeft;
   final Swipes swipesRight;
-  Actions({
-    this.clicks,
-    this.swipesUp,
-    this.swipesDown,
-    this.swipesLeft,
-    this.swipesRight
-  });
+  Actions(
+      {this.clicks,
+      this.swipesUp,
+      this.swipesDown,
+      this.swipesLeft,
+      this.swipesRight});
 }
 
 class Swipes {
@@ -39,8 +38,8 @@ final challenges = {
     nextChallenge: "2",
     achivement: "1",
     actions: Actions(
-      clicks: Clicks(amount: 10, achivements: {2: '1.1', 4: '1.2'}),
-      swipesLeft: Swipes(amount: 10, achivements: {5: '1.3'})
+      clicks: Clicks(amount: 10, achivements: {2: '1.1', 4: '1.2', 6: '1.3'}),
+      // swipesLeft: Swipes(amount: 10, achivements: {5: '1.3'}),
     ),
   ),
   "2": Challenge(
