@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
+
 import './store.dart';
 import './appState.dart';
 import './components/buttons/buttonContainer.dart';
 import './components/clickTextCounters/clickTextCounter.dart';
+import './components/swipeTextCounters/swipeUpTextCounterContainer.dart';
+import './components/swipeTextCounters/swipeDownTextCounterContainer.dart';
+import './components/swipeTextCounters/swipeLeftTextCounterContainer.dart';
+import './components/swipeTextCounters/swipeRightTextCounterContainer.dart';
 import './components/unlocks/unlocks.dart';
 import './components/soundIcon/soundIcon.dart';
 
@@ -48,11 +53,26 @@ class MyHomePage extends StatelessWidget {
                     child: SoundIcon(),
                   ),
                 ),
-                Expanded(
-                  child: Center(
-                    child: ClickTextCounter(),
-                  ),
-                )
+                Column(
+                  children: <Widget>[
+                    Center(
+                        child: ClickTextCounter(),
+                      ),
+                    Center(
+                        child: SwipeUpTextCounterContainer(),
+                      ),
+                    Center(
+                        child: SwipeDownTextCounterContainer(),
+                      ),
+                    Center(
+                        child: SwipeLeftTextCounterContainer(),
+                      ),
+                    Center(
+                        child: SwipeRightTextCounterContainer(),
+                      ),
+
+                  ],
+                ),
               ],
             ),
           ),

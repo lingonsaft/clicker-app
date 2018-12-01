@@ -80,10 +80,10 @@ bool isSwipesUpComplete(String key, int amount) {
     return false;
   }
 
-  if (_challenge.actions.clicks.amount == 0) {
+  if (_challenge.actions.swipesUp.amount == 0) {
     return true;
   }
-  return _challenge.actions.clicks.amount == amount;
+  return _challenge.actions.swipesUp.amount == amount;
 }
 
 bool isSwipesDownComplete(String key, int amount) {
@@ -93,10 +93,10 @@ bool isSwipesDownComplete(String key, int amount) {
     return false;
   }
 
-  if (_challenge.actions.clicks.amount == 0) {
+  if (_challenge.actions.swipesDown.amount == 0) {
     return true;
   }
-  return _challenge.actions.clicks.amount == amount;
+  return _challenge.actions.swipesDown.amount == amount;
 }
 
 bool isSwipesLeftComplete(String key, int amount) {
@@ -106,10 +106,10 @@ bool isSwipesLeftComplete(String key, int amount) {
     return false;
   }
 
-  if (_challenge.actions.clicks.amount == 0) {
+  if (_challenge.actions.swipesLeft.amount == 0) {
     return true;
   }
-  return _challenge.actions.clicks.amount == amount;
+  return _challenge.actions.swipesLeft.amount == amount;
 }
 
 bool isSwipesRightComplete(String key, int amount) {
@@ -119,10 +119,10 @@ bool isSwipesRightComplete(String key, int amount) {
     return false;
   }
 
-  if (_challenge.actions.clicks.amount == 0) {
+  if (_challenge.actions.swipesRight.amount == 0) {
     return true;
   }
-  return _challenge.actions.clicks.amount == amount;
+  return _challenge.actions.swipesRight.amount == amount;
 }
 
 String getSwipeUpAchivement(String key, int amount) {
@@ -163,4 +163,9 @@ String getSwipeRightAchivement(String key, int amount) {
   }
   String achivement = _challenge.actions.swipesRight.achivements[amount];
   return achivement == null ? '' : achivement;
+}
+
+String getChallengeAchivement(String key) {
+  Challenge _challenge = getChallenge(key);
+  return _challenge.achivement;
 }

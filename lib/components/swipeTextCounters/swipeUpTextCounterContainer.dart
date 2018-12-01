@@ -5,40 +5,42 @@ import '../../appState.dart';
 import '../../utils/challengeUtil.dart';
 import '../../achivements/challenges.dart';
 
-class ClickTextCounter extends StatelessWidget {
+class SwipeUpTextCounterContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreConnector(
       converter: _ViewModel.fromStore,
       builder: (context, vm) {
         Challenge challenge = getChallenge(vm.challengeKey);
-
         Map<String, bool> availableActions =
             getAvailableActions(vm.challengeKey);
 
-        if (!availableActions['clicks']) {
+        if (!availableActions['swipesUp']) {
           return Container();
         }
 
-        int amount = challenge.actions.clicks.amount;
-        int remainingClicks = amount - vm.number;
+        int amount = challenge.actions.swipesUp.amount;
+        int remainingClicks = amount - vm.swipeUpCount;
+
         if (amount <= 0 || remainingClicks <= 0) {
           return Container();
         }
-        return Text(remainingClicks.toString());
+
+        return Text(remainingClicks.toString() + ' up swipes');
       },
     );
   }
 }
 
 class _ViewModel {
-  final int number;
+  final int swipeUpCount;
   final String challengeKey;
 
-  _ViewModel({@required this.number, @required this.challengeKey});
+  _ViewModel({@required this.swipeUpCount, @required this.challengeKey});
 
   static _ViewModel fromStore(Store<AppState> store) {
     return _ViewModel(
-        number: store.state.clickCount, challengeKey: store.state.challengeKey);
+        swipeUpCount: store.state.swipeUpCount,
+        challengeKey: store.state.challengeKey);
   }
 }

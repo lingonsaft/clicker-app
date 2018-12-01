@@ -61,6 +61,11 @@ class _ButtonContainer extends State<ButtonContainer> {
         this.isSwipesRightCompleted) {
 
       vm.resetClickCount();
+      vm.resetSwipeUpCount();
+      vm.resetSwipeDownCount();
+      vm.resetSwipeLeftCount();
+      vm.resetSwipeRightCount();
+      onAchivement(vm, getChallengeAchivement(vm.challengeKey));
       String challangeKey = getNextChallengeKey(vm.challengeKey);
       vm.setChallengeKey(challangeKey);
       setCompletedChecks(challangeKey);
@@ -78,7 +83,6 @@ class _ButtonContainer extends State<ButtonContainer> {
       vm.addAchivements(achivement);
     }
   }
-
 
   void onPressed(_ViewModel vm, [playClickSound = false]) {
     vm.addClick(1);
@@ -226,9 +230,13 @@ class _ViewModel {
   final int clickCount;
   final Set<String> completeAchivements;
   final Function(int n) addSwipeUp;
+  final Function() resetSwipeUpCount;
   final Function(int n) addSwipeDown;
+  final Function() resetSwipeDownCount;
   final Function(int n) addSwipeLeft;
+  final Function() resetSwipeLeftCount;
   final Function(int n) addSwipeRight;
+  final Function() resetSwipeRightCount;
   final int swipeUpCount;
   final int swipeDownCount;
   final int swipeLeftCount;
@@ -244,6 +252,10 @@ class _ViewModel {
     this.addSwipeDown,
     this.addSwipeLeft,
     this.addSwipeRight,
+    this.resetSwipeUpCount,
+    this.resetSwipeDownCount,
+    this.resetSwipeLeftCount,
+    this.resetSwipeRightCount,
     this.challengeKey,
     this.clickCount,
     this.completeAchivements,
@@ -271,6 +283,18 @@ class _ViewModel {
       store.dispatch(SwipeLeftAddAction(n));
     }, (int n) {
       store.dispatch(SwipeRightAddAction(n));
+    },
+    () {
+      store.dispatch(SwipeCount.ResetUpCount);
+    },
+    () {
+      store.dispatch(SwipeCount.ResetDownCount);
+    },
+    () {
+      store.dispatch(SwipeCount.ResetLeftCount);
+    },
+    () {
+      store.dispatch(SwipeCount.ResetRightCount);
     },
     store.state.challengeKey,
     store.state.clickCount,
