@@ -70,7 +70,7 @@ class _ButtonContainer extends State<ButtonContainer> {
   void onAchivement(_ViewModel vm String achivement) {
     if (achivement != '') {
       Achivement _achivement = getAchivement(achivement);
-      notification.display(
+      notification.addToQueue(
         title: _achivement.title,
         body: _achivement.body,
         context: context
