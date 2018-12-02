@@ -40,12 +40,7 @@ class _StaticMutedSoundIcon extends StatelessWidget {
   }
 }
 
-class _ClickableSoundIcon extends StatefulWidget {
-  @override
-  _ClickableSoundIconState createState() => _ClickableSoundIconState();
-}
-
-class _ClickableSoundIconState extends State<_ClickableSoundIcon> {
+class _ClickableSoundIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreConnector(

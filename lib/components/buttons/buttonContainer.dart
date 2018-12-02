@@ -35,14 +35,14 @@ class _ButtonContainer extends State<ButtonContainer> {
   @override
   void initState() {
     super.initState();
-    String challangeKey = AppStore.state.challengeKey;
-    print(challangeKey);
-    setCompletedChecks(challangeKey);
+    String challengeKey = AppStore.state.challengeKey;
+    print(challengeKey);
+    setCompletedChecks(challengeKey);
     player.load(audioFile);
   }
 
-  void setCompletedChecks(String challangeKey) {
-    Map<String, bool> availableActions = getAvailableActions(challangeKey);
+  void setCompletedChecks(String challengeKey) {
+    Map<String, bool> availableActions = getAvailableActions(challengeKey);
     isClicksCompleted = !availableActions['clicks'];
     isSwipesUpCompleted = !availableActions['swipesUp'];
     isSwipesDownCompleted = !availableActions['swipesDown'];
@@ -51,10 +51,10 @@ class _ButtonContainer extends State<ButtonContainer> {
   }
   /*
    * runs on each interaction with the button
-   * should reset store and change challange if all
+   * should reset store and change challenge if all
    * conditions are true
   */
-  void checkChallangeCompletion(_ViewModel vm) {
+  void checkChallengeCompletion(_ViewModel vm) {
     if (this.isClicksCompleted && this.isSwipesUpCompleted &&
         this.isSwipesDownCompleted &&
         this.isSwipesLeftCompleted &&
@@ -66,9 +66,9 @@ class _ButtonContainer extends State<ButtonContainer> {
       vm.resetSwipeLeftCount();
       vm.resetSwipeRightCount();
       onAchivement(vm, getChallengeAchivement(vm.challengeKey));
-      String challangeKey = getNextChallengeKey(vm.challengeKey);
-      vm.setChallengeKey(challangeKey);
-      setCompletedChecks(challangeKey);
+      String challengeKey = getNextChallengeKey(vm.challengeKey);
+      vm.setChallengeKey(challengeKey);
+      setCompletedChecks(challengeKey);
     }
   }
 
@@ -96,7 +96,7 @@ class _ButtonContainer extends State<ButtonContainer> {
       this.isClicksCompleted = true;
     }
 
-    checkChallangeCompletion(vm);
+    checkChallengeCompletion(vm);
   }
 
   void _playClickSound(_ViewModel vm) {
@@ -124,7 +124,7 @@ class _ButtonContainer extends State<ButtonContainer> {
       this.isSwipesUpCompleted = true;
     }
 
-    checkChallangeCompletion(vm);
+    checkChallengeCompletion(vm);
   }
 
   void onSwipeDown(_ViewModel vm) {
@@ -136,7 +136,7 @@ class _ButtonContainer extends State<ButtonContainer> {
       this.isSwipesDownCompleted = true;
     }
 
-    checkChallangeCompletion(vm);
+    checkChallengeCompletion(vm);
   }
 
   void onSwipeLeft(_ViewModel vm) {
@@ -148,7 +148,7 @@ class _ButtonContainer extends State<ButtonContainer> {
       this.isSwipesLeftCompleted = true;
     }
 
-    checkChallangeCompletion(vm);
+    checkChallengeCompletion(vm);
   }
 
   void onSwipeRight(_ViewModel vm) {
@@ -160,7 +160,7 @@ class _ButtonContainer extends State<ButtonContainer> {
       this.isSwipesRightCompleted = true;
     }
 
-    checkChallangeCompletion(vm);
+    checkChallengeCompletion(vm);
   }
 
   Widget withSwipeDetection(_ViewModel vm, Widget child) {
