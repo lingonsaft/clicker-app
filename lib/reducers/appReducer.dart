@@ -4,6 +4,7 @@ import './challengeReducer.dart';
 import './completedAchivementsReducer.dart';
 import './swipeCountReducer.dart';
 import './soundEffectReducer.dart';
+import './musicReducer.dart';
 
 AppState appReducer(AppState state, dynamic action) {
   return AppState(
@@ -16,5 +17,6 @@ AppState appReducer(AppState state, dynamic action) {
     swipeLeftCount: swipeLeftReducer(state.swipeLeftCount, action),
     swipeRightCount: swipeRightReducer(state.swipeRightCount, action),
     soundEffectMuted: soundEffectReducer(state.soundEffectMuted, action),
+    musicMuted: musicReducer(state.musicMuted, action),
   );
 }

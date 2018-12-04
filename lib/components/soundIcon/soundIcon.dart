@@ -48,7 +48,9 @@ class _ClickableSoundIcon extends StatelessWidget {
         builder: (context, vm) {
           return IconButton(
             icon: Icon(
-              vm.soundEffectMuted ? Icons.volume_off : Icons.volume_up,
+              vm.soundEffectMuted
+                  ? Icons.notifications_off
+                  : Icons.notifications_active,
               color: Colors.black54,
             ),
             iconSize: 40,

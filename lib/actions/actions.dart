@@ -46,3 +46,8 @@ class MuteSoundEffect {
   bool value;
   MuteSoundEffect(this.value);
 }
+
+class MuteMusic {
+  bool value;
+  MuteMusic(this.value);
+}

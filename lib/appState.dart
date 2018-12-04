@@ -10,14 +10,17 @@ class AppState {
   final int swipeLeftCount;
   final int swipeRightCount;
   final bool soundEffectMuted;
+  final bool musicMuted;
 
-  AppState(
-      {this.clickCount,
-      this.challengeKey,
-      this.completeAchivements,
-      this.swipeUpCount,
-      this.swipeDownCount,
-      this.swipeLeftCount,
-      this.swipeRightCount,
-      this.soundEffectMuted});
+  AppState({
+    this.clickCount,
+    this.challengeKey,
+    this.completeAchivements,
+    this.swipeUpCount,
+    this.swipeDownCount,
+    this.swipeLeftCount,
+    this.swipeRightCount,
+    this.soundEffectMuted,
+    this.musicMuted,
+  });
 }
