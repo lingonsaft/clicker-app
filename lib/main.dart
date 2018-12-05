@@ -12,7 +12,7 @@ import './components/swipeTextCounters/swipeLeftTextCounterContainer.dart';
 import './components/swipeTextCounters/swipeRightTextCounterContainer.dart';
 import './components/unlocks/unlocks.dart';
 import './components/soundIcon/soundIcon.dart';
-import './components/gameMusic/gameMusic.dart';
+import './components/backgroundMusic/backgroundMusic.dart';
 
 void main() {
   runApp(MyApp(store: AppStore));
@@ -52,7 +52,8 @@ class MyHomePage extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.topRight,
                     child: Row(
-                      children: <Widget>[SoundIcon(), GameMusic()],
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[SoundIcon(), BackgroundMusic()],
                     ),
                   ),
                 ),

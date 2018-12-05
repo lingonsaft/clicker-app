@@ -54,7 +54,7 @@ final challenges = {
     nextChallenge: "1",
     achivement: "3",
     actions: Actions(
-      clicks: Clicks(amount: 8, achivements: {4: '3.1'}),
+      clicks: Clicks(amount: 10, achivements: {2: '3.1', 4: '3.2', 6: '3.3'}),
       swipesDown: Swipes(amount: 2, achivements: {}),
     ),
   ),

@@ -21,7 +21,7 @@ class SoundIcon extends StatelessWidget {
           case '1.2':
             return _ClickableSoundIcon();
           default:
-            return Column();
+            return Card();
         }
       },
     );
@@ -32,7 +32,7 @@ class _StaticMutedSoundIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Icon(Icons.volume_off),
+      icon: Icon(Icons.notifications_off),
       iconSize: 40,
       padding: EdgeInsets.all(24),
       onPressed: () => null,

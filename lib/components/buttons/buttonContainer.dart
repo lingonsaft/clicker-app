@@ -107,8 +107,8 @@ class _ButtonContainer extends State<ButtonContainer> {
 
   double getRandomVolume(){
     Random random = Random();
-    // return double from 0.5 to 1
-    return (random.nextInt(10-4)+5)/10;
+    // return double from 0.8 to 1
+    return (random.nextInt(10-7)+8)/10;
   }
 
   void onSwipeAny(vm) {
