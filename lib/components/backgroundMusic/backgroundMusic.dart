@@ -36,14 +36,13 @@ class _MutedMusicIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-          icon: Icon(
-            Icons.volume_off,
-            color: Colors.black54,
-          ),
-          iconSize: 40,
-          padding: EdgeInsets.all(24),
-          onPressed: () {},
-        );
+      icon: Icon(
+        Icons.volume_off,
+        color: Colors.black54,
+      ),
+      iconSize: 40,
+      padding: EdgeInsets.all(24),
+      onPressed: () {},
     );
   }
 }

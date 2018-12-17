@@ -5,13 +5,7 @@ class Achivement {
 }
 
 final achivements = {
-  "1": Achivement(title: "1 Achivement", body: 'body'),
-  "1.1": Achivement(title: "1.1 SoundIcon", body: 'You unlocked a SoundIcon'),
-  "1.2": Achivement(
-      title: "1.2 Mutable SoundIcon",
-      body: 'You unlocked the Mutable Sound Icon'),
-  "1.3": Achivement(
-      title: "1.3 Click Sound Effext", body: 'You unlocker sound effects!'),
+  "1": Achivement(title: "First Achivement", body: 'You Unlocked Achivements'),
   "2": Achivement(
       title: "2 Basic swipes", body: 'On your way to be a swipe master!'),
   "2.1": Achivement(title: "2.1 First 5 swipes", body: 'Yeay'),
@@ -21,4 +15,10 @@ final achivements = {
       title: "3.1 Achivement", body: 'You unlocked Mutable Music Icon'),
   "3.3": Achivement(
       title: "3.1 Achivement", body: 'You unlocked background Music'),
+  "4.1": Achivement(title: "1.1 SoundIcon", body: 'You unlocked a SoundIcon'),
+  "4.2": Achivement(
+      title: "1.2 Mutable SoundIcon",
+      body: 'You unlocked the Mutable Sound Icon'),
+  "4.3": Achivement(
+      title: "1.3 Click Sound Effext", body: 'You unlocker sound effects!'),
 };

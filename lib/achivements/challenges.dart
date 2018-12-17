@@ -38,7 +38,7 @@ final challenges = {
     nextChallenge: "2",
     achivement: "1",
     actions: Actions(
-      clicks: Clicks(amount: 10, achivements: {2: '1.1', 4: '1.2', 6: '1.3'}),
+      clicks: Clicks(amount: 16),
     ),
   ),
   "2": Challenge(
@@ -46,15 +46,25 @@ final challenges = {
     nextChallenge: "3",
     achivement: "2",
     actions: Actions(
+      clicks: Clicks(amount: 10),
       swipesLeft: Swipes(amount: 5, achivements: {}),
     ),
   ),
   "3": Challenge(
     selfKey: "3",
-    nextChallenge: "1",
+    nextChallenge: "4",
     achivement: "3",
     actions: Actions(
       clicks: Clicks(amount: 10, achivements: {2: '3.1', 4: '3.2', 6: '3.3'}),
+      swipesDown: Swipes(amount: 2, achivements: {}),
+    ),
+  ),
+  "4": Challenge(
+    selfKey: "4",
+    nextChallenge: "1",
+    achivement: "4",
+    actions: Actions(
+      clicks: Clicks(amount: 10, achivements: {2: '4.1', 4: '4.2', 6: '4.3'}),
       swipesDown: Swipes(amount: 2, achivements: {}),
     ),
   ),
